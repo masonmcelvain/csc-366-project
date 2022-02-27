@@ -39,7 +39,7 @@ public class Prepared extends Product {
         if (!(o instanceof Prepared)) return false;
         if (!super.equals(o)) return false;
         Prepared other = (Prepared) o;
-        return calories == null ? other.getCalories() == null : calories.equals((other.getCalories()));
+        return Objects.equals(calories, other.calories);
     }
 
     @Override

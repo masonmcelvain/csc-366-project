@@ -65,13 +65,7 @@ public class Product {
         if (this == o) return true;
         if (!(o instanceof Product)) return false;
         Product other = (Product) o;
-        if (sku == null ? other.getSku() != null : !sku.equals((other.getSku()))) {
-            return false;
-        }
-        if (price == null ? other.getPrice() != null : !price.equals((other.getPrice()))) {
-            return false;
-        }
-        return name == null ? other.getName() == null : name.equals((other.getName()));
+        return Objects.equals(sku, other.sku) && Objects.equals(name, other.name) && Objects.equals(price, other.price);
     }
 
     @Override

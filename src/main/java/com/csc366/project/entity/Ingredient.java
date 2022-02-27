@@ -39,7 +39,7 @@ public class Ingredient {
         if (this == o) return true;
         if (!(o instanceof Ingredient)) return false;
         Ingredient other = (Ingredient) o;
-        return name == null ? other.getName() == null : name.equals((other.getName()));
+        return Objects.equals(name, other.name);
     }
 
     @Override

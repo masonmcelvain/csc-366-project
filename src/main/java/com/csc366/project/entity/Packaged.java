@@ -44,7 +44,7 @@ public class Packaged extends Product {
         if (!(o instanceof Packaged)) return false;
         if (!super.equals(o)) return false;
         Packaged other = (Packaged) o;
-        return size == null ? other.getSize() == null : size.equals((other.getSize()));
+        return Objects.equals(size, other.size);
     }
 
     @Override
