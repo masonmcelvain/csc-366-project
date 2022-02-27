@@ -48,7 +48,7 @@ public class ProductTest {
     }
 
     @Test
-    public void testSaveProduct() {
+    public void testSave() {
         Product actual = productRepository.findBySku("testSku");
 
         log.info(actual.toString());
@@ -58,18 +58,18 @@ public class ProductTest {
     }
 
     @Test
-    public void testDeletePerson() {
+    public void testDelete() {
         productRepository.delete(product);
         productRepository.flush();
     }
 
     @Test
-    public void testFindAllPersons() {
+    public void testFindAll() {
         assertNotNull(productRepository.findAll());
     }
 
     @Test
-    public void testDeletByPersonId() {
+    public void testDeletById() {
         Product actual = productRepository.findBySku("testSku");
         productRepository.deleteById(actual.getSku());
         productRepository.flush();

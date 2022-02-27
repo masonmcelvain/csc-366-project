@@ -48,7 +48,7 @@ class IngredientTest {
     }
 
     @Test
-    public void testSaveIngredient() {
+    public void testSave() {
         Ingredient actual = ingredientRepository.findByName("test");
 
         log.info(actual.toString());
@@ -58,18 +58,18 @@ class IngredientTest {
     }
 
     @Test
-    public void testDeletePerson() {
+    public void testDelete() {
         ingredientRepository.delete(ingredient);
         ingredientRepository.flush();
     }
 
     @Test
-    public void testFindAllPersons() {
+    public void testFindAll() {
         assertNotNull(ingredientRepository.findAll());
     }
 
     @Test
-    public void testDeletByPersonId() {
+    public void testDeletById() {
         Ingredient actual = ingredientRepository.findByName("test");
         ingredientRepository.deleteById(actual.getName());
         ingredientRepository.flush();
