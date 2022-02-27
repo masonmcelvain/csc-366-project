@@ -1,0 +1,81 @@
+package com.csc366.project.entity;
+
+import java.util.Objects;
+import java.util.StringJoiner;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+
+/**
+ * Price is in cents to avoid floating point arithmetic.
+ */
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "product")
+public class Product {
+    @Id
+    private String sku;
+    private String name;
+    private Long price;
+
+    protected Product() {}
+
+    public Product(String sku, String name, Long price) {
+        this.sku = sku;
+        this.name = name;
+        this.price = price;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        StringJoiner sj = new StringJoiner("," , Product.class.getSimpleName() + "[" , "]");
+        sj.add(sku).add(name).add(price.toString());
+        return sj.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product)) return false;
+        Product other = (Product) o;
+        if (sku == null ? other.getSku() != null : !name.equals((other.getSku()))) {
+            return false;
+        }
+        if (price == null ? other.getPrice() != null : !price.equals((other.getPrice()))) {
+            return false;
+        }
+        return name == null ? other.getName() == null : name.equals((other.getName()));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sku, name, price);
+    }
+}
