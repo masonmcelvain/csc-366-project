@@ -35,6 +35,14 @@ public class Ingredient {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ingredient)) return false;
+        Ingredient other = (Ingredient) o;
+        return name == null ? other.getName() == null : name.equals((other.getName()));
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(name);
     }
