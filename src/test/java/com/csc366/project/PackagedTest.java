@@ -56,7 +56,7 @@ public class PackagedTest {
         log.info(actual.toString());
 
         assertNotNull(actual);
-        assertEquals(packaged.getSku(), actual.getSku());
+        assertEquals(packaged, actual);
     }
 
     @Test
@@ -80,6 +80,6 @@ public class PackagedTest {
     @Test
     public void testJpqlFinder() {
         Product actual = productRepository.findBySku("testSku");
-        assertEquals(actual.getSku(), packaged.getSku());
+        assertEquals(packaged, actual);
     }
 }

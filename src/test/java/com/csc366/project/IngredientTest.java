@@ -54,7 +54,7 @@ class IngredientTest {
         log.info(actual.toString());
 
         assertNotNull(actual);
-        assertEquals(ingredient.getName(), actual.getName());
+        assertEquals(ingredient, actual);
     }
 
     @Test
@@ -78,6 +78,6 @@ class IngredientTest {
     @Test
     public void testJpqlFinder() {
         Ingredient actual = ingredientRepository.findByName("test");
-        assertEquals(actual.getName(), ingredient.getName());
+        assertEquals(ingredient, actual);
     }
 }
