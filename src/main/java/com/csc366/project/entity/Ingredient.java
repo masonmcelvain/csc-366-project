@@ -1,10 +1,13 @@
 package com.csc366.project.entity;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.StringJoiner;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -12,6 +15,8 @@ import javax.persistence.Table;
 public class Ingredient {
     @Id
     private String name;
+    @OneToMany(mappedBy = "product")
+    private Set<Recipe> recipes = new HashSet<Recipe>();
 
     protected Ingredient() {}
 
@@ -25,6 +30,14 @@ public class Ingredient {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Recipe> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(Set<Recipe> recipes) {
+        this.recipes = recipes;
     }
 
     @Override
