@@ -1,15 +1,14 @@
 package com.csc366.project.entity;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -18,48 +17,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name="contract")
 public class Contract {
-    @Embeddable
-    public static class ContractId implements Serializable {
-        @Column(nullable=false, updatable = false)
-        private String productId;
-
-        @Column(nullable=false, updatable = false)
-        private Long supplierId;
-
-        @Column(nullable=false, updatable = false)
-        private Long locationId;
-
-        public ContractId() {}
-
-        public ContractId(String productId, Long supplierId, Long locationId) {
-            this.productId = productId;
-            this.supplierId = supplierId;
-            this.locationId = locationId;
-        }
-
-        public String getProductId() {
-            return productId;
-        }
-
-        public Long getSupplierId() {
-            return supplierId;
-        }
-
-        public Long getLocationId() {
-            return locationId;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof ContractId)) return false;
-            ContractId other = (ContractId) o;
-            return Objects.equals(productId, other.productId) && Objects.equals(locationId, other.locationId);
-        }
-
-    }
-    @EmbeddedId
-    private ContractId contractId;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
     
     private String type;
     private int rate; // in cents
@@ -67,15 +27,15 @@ public class Contract {
     private LocalDate date;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "productId", insertable = false, updatable = false)
+    @JoinColumn(name = "productId", insertable = true, updatable = false)
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "supplierId", insertable = false, updatable = false)
+    @JoinColumn(name = "supplierId", insertable = true, updatable = false)
     private Supplier supplier;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "locationId", insertable = false, updatable = false)
+    @JoinColumn(name = "locationId", insertable = true, updatable = false)
     private Location location;
 
     public Contract() {}
@@ -88,7 +48,6 @@ public class Contract {
         this.product = product;
         this.supplier = supplier;
         this.location = location;
-        this.contractId = new ContractId(product.getSku(), supplier.getId(), location.getId());
     }
 
     public String getType() {
@@ -135,14 +94,14 @@ public class Contract {
         return location;
     }
 
-    public ContractId getId() {
-        return contractId;
+    public Long getId() {
+        return id;
     }
 
     @Override
     public String toString() {
         StringJoiner sj = new StringJoiner("," , Contract.class.getSimpleName() + "[" , "]");
-	    sj.add(contractId.toString()).add(supplier.toString()).add(product.toString()).add(location.toString()).add(date.toString()).add(Integer.toString(quantity)).add(Integer.toString(rate)).add(type);
+	    sj.add(id.toString()).add(supplier.toString()).add(product.toString()).add(location.toString()).add(date.toString()).add(Integer.toString(quantity)).add(Integer.toString(rate)).add(type);
 	    return sj.toString();
     }
 
@@ -152,11 +111,11 @@ public class Contract {
             return true;
 	    if (!(o instanceof Contract)) 
             return false;
-	    return contractId != null && contractId.equals(((Contract) o).getId());
+	    return id != null && id.equals(((Contract) o).getId());
     }
 
     @Override
     public int hashCode() {
-	    return Objects.hash(contractId);
+	    return Objects.hash(id);
     }
 }

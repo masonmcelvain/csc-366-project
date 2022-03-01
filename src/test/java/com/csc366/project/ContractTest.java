@@ -70,7 +70,7 @@ class ContractTest {
     private final Product packaged = new Packaged("sku2", "packName", (long)10, Size.M);
     private final Location location = new Location();
     private final Supplier supplier = new Supplier("testName", "testEmail", "888-888-8888", address);
-    private Contract contract;// = new Contract("New", 10, 1099, LocalDate.parse("2022-01-10"), prepared, supplier, location);
+    private final Contract contract =  new Contract("New", 10, 1099, LocalDate.parse("2022-01-10"), prepared, supplier, location);
 
     
     @BeforeEach
@@ -79,7 +79,6 @@ class ContractTest {
         supplierRepository.saveAndFlush(supplier);
         productRepository.saveAndFlush(prepared);
         locationRepository.saveAndFlush(location);
-        contract = new Contract("New", 10, 1099, LocalDate.parse("2022-01-10"), prepared, supplier, location);
 	    contractRepository.saveAndFlush(contract);
     }
 
