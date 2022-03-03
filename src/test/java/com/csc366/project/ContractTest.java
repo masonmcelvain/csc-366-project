@@ -139,7 +139,7 @@ class ContractTest {
 
     @Test
     @Order(7)
-    public void testContractByAddressJpql() {
+    public void testContractByProductJpql() {
         Contract contract2 = contractRepository.findByProductSkuJpql("sku1");
         assertNotNull(contract2);
         assertEquals(contract2.getType(), contract.getType());

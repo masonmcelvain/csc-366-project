@@ -3,22 +3,31 @@ package com.csc366.project.entity;
 import java.util.StringJoiner;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity  
-@Table(name="address")
+@Table(name="address", uniqueConstraints = @UniqueConstraint(columnNames={"street", "city", "state", "zip_code"}))
 public class Address {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "street", nullable = false)
     private String street; 
+
+    @Column(name = "city", nullable = false)
     private String city;
+
+    @Column(name = "state", nullable = false)
     private String state;
+
+    @Column(name = "zip_code", nullable = false)
     private String zipCode;
     
     public Address() { }

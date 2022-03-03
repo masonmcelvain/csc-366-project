@@ -3,6 +3,7 @@ package com.csc366.project.entity;
 import java.util.Objects;
 import java.util.StringJoiner;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,8 +20,11 @@ public class Supplier {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String name;
+
     private String emailAddress;
+    
     private String phoneNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)
