@@ -24,7 +24,7 @@ public class Location {
 
     private LocalDate openDate;
 
-    @ManyToOne(fetch =  FetchType.LAZY)
+    @OneToOne(fetch =  FetchType.LAZY)
     @JoinColumn(name = "address_id")
     private Address address;
 
