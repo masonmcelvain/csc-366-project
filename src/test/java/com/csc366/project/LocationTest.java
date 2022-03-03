@@ -8,10 +8,10 @@ import java.time.LocalDate;
 import com.csc366.project.entity.Address;
 import com.csc366.project.entity.Contract;
 import com.csc366.project.entity.Location;
+import com.csc366.project.entity.Owner;
 import com.csc366.project.entity.Packaged;
 import com.csc366.project.entity.Prepared;
 import com.csc366.project.entity.Product;
-import com.csc366.project.entity.Owner;
 import com.csc366.project.entity.Size;
 import com.csc366.project.entity.Supplier;
 import com.csc366.project.repository.AddressRepository;
@@ -49,102 +49,88 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
     "logging.pattern.console= %d{yyyy-MM-dd HH:mm:ss} - %msg%n"
 })
 @TestMethodOrder(OrderAnnotation.class)
-class ContractTest {
-    private final static Logger log = LoggerFactory.getLogger(ContractTest.class);
-    
-    @Autowired
-    private ContractRepository contractRepository;
+class LocationTest {
+    private final static Logger log = LoggerFactory.getLogger(LocationTest.class);
 
     @Autowired
     private AddressRepository addressRepository;
-
+    
     @Autowired
-    private SupplierRepository supplierRepository;
+    private LocationRepository locationRepository;
 
     @Autowired 
-    LocationRepository locationRepository;
-
-    @Autowired 
-    ProductRepository productRepository;
-
-    @Autowired 
-    OwnerRepository ownerRepository;
+    private OwnerRepository ownerRepository;
 
     private final Address address = new Address("testStreet", "testCity", "testState", "testZip");
-    private final Product prepared = new Prepared("sku1", "prepName", (long)10, (long)100);
-    private final Product packaged = new Packaged("sku2", "packName", (long)10, Size.M);
     private final Owner owner = new Owner("testFirst testLast");
     private final Location location = new Location(LocalDate.parse("2022-01-01"), address, owner);
-    private final Supplier supplier = new Supplier("testName", "testEmail", "888-888-8888", address);
-    private final Contract contract =  new Contract("New", 10, 1099, LocalDate.parse("2022-01-10"), prepared, supplier, location);
 
     
     @BeforeEach
     private void setup() {
         addressRepository.saveAndFlush(address);
-        supplierRepository.saveAndFlush(supplier);
-        productRepository.saveAndFlush(prepared);
         ownerRepository.saveAndFlush(owner);
         locationRepository.saveAndFlush(location);
-	    contractRepository.saveAndFlush(contract);
     }
 
     @Test
     @Order(1)
-    public void testSaveContract() {
-        Contract contract2 = contractRepository.findBySupplier(supplier);
-
-        log.info(contract2.toString());
+    public void testSaveLocation() {
+        Location location2 = locationRepository.findByOwner(owner);
+        log.info(location2.toString());
         
-        assertNotNull(contract2);
-        assertEquals(contract2.getType(), contract.getType());
-        assertEquals(contract2.getQuantity(), contract.getQuantity());
-        assertEquals(contract2.getRate(), contract.getRate());
-        assertEquals(contract2.getDate(), contract.getDate());
+        assertNotNull(location2);
+        assertEquals(location2.getOpenDate(), location.getOpenDate());
+        assertEquals(location2.getAddress(), location.getAddress());
+        assertEquals(location2.getOwner(), location.getOwner());
     }
 
     @Test
     @Order(2)
-    public void testGetContract() {
-        Contract contract2 = contractRepository.findBySupplier(supplier);
-        assertNotNull(contract2);
-        assertEquals(contract2.getType(), contract.getType());
-        assertEquals(contract2.getQuantity(), contract.getQuantity());
-        assertEquals(contract2.getRate(), contract.getRate());
-        assertEquals(contract2.getDate(), contract.getDate());
+    public void testGetLocation() {
+        Location location2 = locationRepository.findByOwner(owner);
+        log.info(location2.toString());
+        
+        assertNotNull(location2);
+        assertEquals(location2.getOpenDate(), location.getOpenDate());
+        assertEquals(location2.getAddress(), location.getAddress());
+        assertEquals(location2.getOwner(), location.getOwner());
     }
 
     @Test
     @Order(3)
-    public void testDeleteContract() {
-        contractRepository.delete(contract);
-        contractRepository.flush();
-        assertEquals(contractRepository.findAll().size(), 0);
+    public void testDeleteLocation() {
+        locationRepository.delete(location);
+        locationRepository.flush();
+        assertEquals(locationRepository.findAll().size(), 0);
     }
-    
+
     @Test
     @Order(4)
-    public void testFindAllContracts() {
-	    assertNotNull(contractRepository.findAll());
+    public void testFindAllLocation() {
+	    assertNotNull(locationRepository.findAll());
     }
 
     @Test
     @Order(5)
-    public void testDeleteByContractId() {
-        Contract s = contractRepository.findBySupplier(supplier);
-        contractRepository.deleteById(s.getId());
-        contractRepository.flush();
-        assertEquals(contractRepository.findAll().size(), 0);
+    public void testDeleteByLocationId() {
+        Location loc = locationRepository.findByOwner(owner);
+
+        locationRepository.deleteById(loc.getId());
+        locationRepository.flush();
+        assertEquals(locationRepository.findAll().size(), 0);
     }
 
     @Test
     @Order(7)
-    public void testContractByAddressJpql() {
-        Contract contract2 = contractRepository.findByProductSkuJpql("sku1");
-        assertNotNull(contract2);
-        assertEquals(contract2.getType(), contract.getType());
-        assertEquals(contract2.getQuantity(), contract.getQuantity());
-        assertEquals(contract2.getRate(), contract.getRate());
-        assertEquals(contract2.getDate(), contract.getDate());
+    public void testLocationByAddressJpql() {
+        Location loc = locationRepository.findByAddress(address);
+
+        assertNotNull(loc);
+        assertEquals(loc.getOpenDate(), location.getOpenDate());
+        assertEquals(loc.getAddress(), location.getAddress());
+        assertEquals(loc.getOwner(), location.getOwner());
     }
 }
+
+
