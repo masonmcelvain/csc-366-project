@@ -25,11 +25,13 @@ public class Owner {
 
     private String name;
 
+    // TODO: figure out whether we want to keep what we have right now for name
     private String firstName;
     private String lastName;
 
-    // @OneToMany(mappedBy = "address")    //is this correct?
-    // private Set<Location> locations = new HashSet<Location>();
+    // TODO: fix mappedBy = "location"
+    @OneToMany(mappedBy = "owner")
+    private Set<Location> locations = new HashSet<Location>();
 
     public Owner() {}
 

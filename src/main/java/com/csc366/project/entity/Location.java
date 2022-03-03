@@ -24,15 +24,15 @@ public class Location {
 
     private LocalDate openDate;
 
-    @ManyToOne(fetch =  FetchType.LAZY)
+    @OneToOne(fetch =  FetchType.LAZY)
     @JoinColumn(name = "address_id")
     private Address address;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ownerId", insertable = true, updatable = false)
+    @JoinColumn(name = "owner_id")
     private Owner owner;
 
-    // public Location() {}
+    protected Location() {}
 
     public Location(LocalDate openDate, Address address, Owner owner) {
         this.openDate = openDate;
