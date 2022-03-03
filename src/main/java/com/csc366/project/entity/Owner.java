@@ -30,8 +30,8 @@ public class Owner {
     private String lastName;
 
     // TODO: fix mappedBy = "location"
-    // @OneToMany(mappedBy = "address")
-    // private Set<Location> locations = new HashSet<Location>();
+    @OneToMany(mappedBy = "owner")
+    private Set<Location> locations = new HashSet<Location>();
 
     public Owner() {}
 
