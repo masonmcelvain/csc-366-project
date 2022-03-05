@@ -3,6 +3,8 @@ package com.csc366.project.entity;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.CascadeType;
 
 @Entity
 @Table(name="location")
@@ -31,6 +34,14 @@ public class Location {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     private Owner owner;
+
+    @OneToMany(
+        mappedBy="location",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true,
+        fetch = FetchType.LAZY
+    )
+    private List<Order> orders = new ArrayList<>();
 
     protected Location() {}
 
@@ -58,6 +69,20 @@ public class Location {
 
     public Owner getOwner() {
         return owner;
+    }
+
+    public void addOrder(Order o){
+        orders.add(o);
+        o.setLocation(this);
+    }
+
+    public void deleteOrder(Order o){
+        orders.remove(o);
+        o.setLocation(null);
+    }
+
+    public List<Order> getOrders() {
+        return this.orders;
     }
 
     @Override
