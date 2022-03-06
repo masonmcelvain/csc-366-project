@@ -44,14 +44,14 @@ public class Order {
     @JoinColumn(name = "customerId", nullable = true)
     private Customer customer;
 
-    /*
+    
     @OneToMany(
-        mappedBy="lineItem",
+        mappedBy="order",
         cascade = CascadeType.ALL,
         orphanRemoval = true,
         fetch = FetchType.LAZY
     )
-    private List<LineItem> lineItems = new ArrayList<>();*/
+    private List<LineItem> lineItems = new ArrayList<>();
 
     public Order() {}
 
@@ -69,6 +69,7 @@ public class Order {
     public void setOrderId(Long orderId){
         this.orderId = orderId;
     }
+    
     public Location getLocation(){
         return this.location;
     }
@@ -109,7 +110,7 @@ public class Order {
         this.customer=customer;
     }
 
-    /*
+    
     public List<LineItem> getLineItems(){
         return this.lineItems;
     }
@@ -123,7 +124,7 @@ public class Order {
         lineItems.add(l);
         l.setOrder(this);
     }
-*/
+
     @Override
     public String toString() {
         StringJoiner sj = new StringJoiner("," , Order.class.getSimpleName() + "[" , "]");

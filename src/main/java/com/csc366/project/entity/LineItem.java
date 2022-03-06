@@ -27,8 +27,6 @@ import javax.persistence.EmbeddedId;
 @Entity
 @Table(name = "lineItem")
 public class LineItem{
-
-    
     @EmbeddedId
     private LineItemKey key;
 
@@ -51,8 +49,7 @@ public class LineItem{
     @Column(name = "tax")
     private double tax;
 
-
-    protected LineItem(){}
+    public LineItem(){}
 
     public LineItem(LineItemKey key, Product product, Order order, int quantity, double subtotal, double tax){
         this.key = key;
