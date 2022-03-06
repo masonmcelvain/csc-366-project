@@ -35,24 +35,23 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
     "logging.pattern.console= %d{yyyy-MM-dd HH:mm:ss} - %msg%n"
 })
 @TestMethodOrder(OrderAnnotation.class)
-class OwnerTest {
+class CustomerTest {
     private final static Logger log = LoggerFactory.getLogger(OwnerTest.class);
 
     @Autowired
     private CustomerRepository customerRepository;
 
     private Customer customer = new Customer("Iron", "Man");
-    customer.setCustomerId((long)1);
 
     @BeforeEach
     private void setup() {
-	    customerRepository.saveAndFlush(owner);
+	    customerRepository.saveAndFlush(customer);
     }
 
     @Test
     @Order(1)
-    public void testSaveOwner() {
-        Customer customer1 = customerRepository.getById((long)1);
+    public void testSaveCustomer() {
+        Customer customer1 = customerRepository.findByFirstName("Iron");
 
         log.info(customer1.toString());
         
@@ -64,8 +63,8 @@ class OwnerTest {
 
     @Test
     @Order(2)
-    public void testDeleteOwner() {
-        customerRepository.delete(owner);
+    public void testDeleteCustomer() {
+        customerRepository.delete(customer);
         customerRepository.flush();
     }
 
@@ -75,18 +74,10 @@ class OwnerTest {
         assertNotNull(customerRepository.findAll());
     }
 
-    // @Test
-    // @Order(4)
-    // public void testDeleteById() {
-    //     Owner own = ownerRepository.findByName("testFirst testLast");
-    //     ownerRepository.deleteById(own.getName());
-    //     ownerRepository.flush();
-    // }
-
     @Test
     @Order(5)
     public void testJpqlFinder() {
-        Customer cust = customerRepository.getById((long)1);
+        Customer cust = customerRepository.findByFirstName("Iron");
         assertEquals(customer, cust);
     }
 }
