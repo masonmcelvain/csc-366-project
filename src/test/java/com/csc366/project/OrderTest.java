@@ -1,4 +1,4 @@
-/*package com.csc366.project;
+package com.csc366.project;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -13,12 +13,13 @@ import com.csc366.project.repository.LocationRepository;
 import com.csc366.project.repository.OrderRepository;
 import com.csc366.project.repository.OwnerRepository;
 import com.csc366.project.repository.AddressRepository;
+import com.csc366.project.repository.LineItemRepository;
 
 import java.util.Date;
-import java.util.LocalDate;
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
+//import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -46,10 +47,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 })
 @TestMethodOrder(OrderAnnotation.class)
 class OrderTest {
-    private final static Logger log = LoggerFactory.getLogger(OwnerTest.class);
+    private final static Logger log = LoggerFactory.getLogger(OrderTest.class);
 
-    @Autowired
-    private OrderRepository orderRepository;
     @Autowired
     private LocationRepository locationRepository;
     @Autowired
@@ -58,50 +57,61 @@ class OrderTest {
     private AddressRepository addressRepository;
     @Autowired
     private OwnerRepository ownerRepository;
+    @Autowired
+    private LineItemRepository lineItemRepository; 
+    @Autowired
+    private OrderRepository orderRepository;
 
 
     private final Customer customer = new Customer("Iron", "Man");
     private final Address address = new Address("testStreet", "testCity", "testState", "testZip");
     private final Owner owner = new Owner("testFirst testLast");
     private final Location location = new Location(LocalDate.parse("2022-01-01"), address, owner);
-    private final entity.Order newOrder = new Order(location, 2.2, 4.5, Date.parse("2022-01-01"));
+    private final Date date = new Date(2022, 1, 1);
+    private Order newOrder = new Order(location, 2.2, 4.5, date);
 
     @BeforeEach
     private void setup() {
-	    orderRepository.saveAndFlush(order);
+        newOrder.setOrderId((long)1);
+        customerRepository.saveAndFlush(customer);
+        newOrder.setCustomer(customer);
+        addressRepository.saveAndFlush(address);
+        ownerRepository.saveAndFlush(owner);
+        locationRepository.saveAndFlush(location);
+	    orderRepository.saveAndFlush(newOrder);
     }
 
     @Test
-    @Order(1)
+    @org.junit.jupiter.api.Order(1)
     public void testSaveOrder() {
-        Order order1 = orderRepository.findByCustomerAndDate(customer, Date.parse("2022-01-01"));
+        Long id = new Long(1);
+        Order order1 = orderRepository.findByOrderId(id);
 
         log.info(order1.toString());
-        
-        assertNotNull(customer1);
-        assertEquals(customer1.getCustomerId(), customer.getCustomerId());
-        assertEquals(customer1.getFirstName(), customer.getFirstName());
-        assertEquals(customer1.getLastName(), customer.getLastName());
-    }
 
+        assertNotNull(order1);
+        assertEquals(newOrder.getLocation(), order1.getLocation());
+        assertEquals(newOrder.getTax(), order1.getTax());
+        assertEquals(newOrder.getTotal(), order1.getTotal());
+    }
+    
     @Test
-    @Order(2)
+    @org.junit.jupiter.api.Order(2)
     public void testDeleteOrder() {
-        orderRepository.delete(order);
+        orderRepository.delete(newOrder);
         orderRepository.flush();
     }
     
-
     @Test
-    @Order(3)
-    public void testFindAll() {
-        assertNotNull(customerRepository.findAll());
+    @org.junit.jupiter.api.Order(3)
+    public void testFindAllOrders() {
+        assertNotNull(orderRepository.findAll());
     }
 
     @Test
-    @Order(5)
-    public void testJpqlFinder() {
-        Customer cust = customerRepository.findByFirstName("Iron");
-        assertEquals(customer, cust);
+    @org.junit.jupiter.api.Order(4)
+    public void testJpqlFinderOrder() {
+        Order ord = orderRepository.findByOrderId((long)1);
+        assertEquals(newOrder, ord);
     }
-}*/
+}

@@ -1,4 +1,4 @@
-/*package com.csc366.project.repository;
+package com.csc366.project.repository;
 
 import com.csc366.project.entity.Order;
 import com.csc366.project.entity.Location;
@@ -14,7 +14,5 @@ import org.springframework.data.repository.query.Param;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
-
-    @Query("select o from Order o where o.customer = :customer && o.date = :date")
-    Order findByCustomerAndDate(@Param("customer") Customer customer, @Param("date") Date date);
-}*/
+    Order findByOrderId(Long orderId);
+}

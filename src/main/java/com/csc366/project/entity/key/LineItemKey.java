@@ -13,10 +13,10 @@ public class LineItemKey implements Serializable {
     @Column(name = "sku")
     String sku;
 
-    @Column(name = "order_id")
+    @Column(name = "orderId")
     Long orderId;
 
-    protected LineItemKey() {}
+    public LineItemKey() {}
 
     public LineItemKey(String sku, Long orderId) {
         this.sku = sku;

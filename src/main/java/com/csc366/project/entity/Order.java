@@ -21,10 +21,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
 
 @Entity
-@Table(name = "order")
+@Table(name = "\"order\"")
 public class Order {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    //@GeneratedValue(strategy= GenerationType.)
     private Long orderId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -43,7 +43,6 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customerId", nullable = true)
     private Customer customer;
-
     
     @OneToMany(
         mappedBy="order",

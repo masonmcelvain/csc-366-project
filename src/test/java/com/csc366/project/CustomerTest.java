@@ -36,7 +36,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 })
 @TestMethodOrder(OrderAnnotation.class)
 class CustomerTest {
-    private final static Logger log = LoggerFactory.getLogger(OwnerTest.class);
+    private final static Logger log = LoggerFactory.getLogger(CustomerTest.class);
 
     @Autowired
     private CustomerRepository customerRepository;

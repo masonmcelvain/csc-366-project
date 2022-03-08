@@ -3,13 +3,24 @@ package com.csc366.project;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.csc366.project.entity.Ingredient;
+import com.csc366.project.entity.Location;
+import com.csc366.project.entity.Order;
+import com.csc366.project.entity.Customer;
+import com.csc366.project.entity.Address;
+import com.csc366.project.entity.Owner;
+import com.csc366.project.entity.LineItem;
 import com.csc366.project.entity.Product;
-import com.csc366.project.entity.Recipe;
-import com.csc366.project.entity.key.RecipeKey;
-import com.csc366.project.repository.IngredientRepository;
+import com.csc366.project.repository.LineItemRepository;
 import com.csc366.project.repository.ProductRepository;
-import com.csc366.project.repository.RecipeRepository;
+import com.csc366.project.repository.OwnerRepository;
+import com.csc366.project.repository.AddressRepository;
+import com.csc366.project.repository.CustomerRepository;
+import com.csc366.project.repository.OrderRepository;
+import com.csc366.project.repository.LocationRepository;
+import com.csc366.project.entity.key.LineItemKey;
+
+import java.util.Date;
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +35,6 @@ import org.springframework.test.context.TestPropertySource;
 /**
  * Add, list, and remove Recipe instances
  */
- /*
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
 @TestPropertySource(properties = {
@@ -44,55 +54,72 @@ class LineItemTest {
     private final static Logger log = LoggerFactory.getLogger(LineItemTest.class);
 
     @Autowired
-    private LineItemRepository lineItemRepository;
+    private OrderRepository orderRepository;
     @Autowired
     private LocationRepository locationRepository;
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private AddressRepository addressRepository;
+    @Autowired
+    private OwnerRepository ownerRepository;
+    @Autowired
+    private LineItemRepository lineItemRepository; 
+    @Autowired
+    private ProductRepository productRepository;
 
-    private final Ingredient ingredient = new Ingredient("testIngredientName");
     private final Product product = new Product("testSku", "testProductName", (long)100);
-    private final RecipeKey recipeKey = new RecipeKey(product.getSku(), ingredient.getName());
-    private final Recipe recipe = new Recipe(recipeKey, product, ingredient);
+    private final Customer customer = new Customer("Iron", "Man");
+    private final Address address = new Address("testStreet", "testCity", "testState", "testZip");
+    private final Owner owner = new Owner("testFirst testLast");
+    private final Location location = new Location(LocalDate.parse("2022-01-01"), address, owner);
+    private Date date = new Date(2022, 1, 1);
+    private Order newOrder = new Order(location, 2.2, 4.5, date);
+    private final LineItemKey key = new LineItemKey(product.getSku(), (long)1);
+    private LineItem lineItem = new LineItem(key, product, newOrder, 3, 4.5, .8);
 
     @BeforeEach
     private void setup() {
-        ingredientRepository.saveAndFlush(ingredient);
+        newOrder.setOrderId((long)1);
+        customerRepository.saveAndFlush(customer);
+        Customer c = customerRepository.findByFirstName("Iron");
+        newOrder.setCustomer(customer);
         productRepository.saveAndFlush(product);
-        recipeRepository.saveAndFlush(recipe);
+        addressRepository.saveAndFlush(address);
+        ownerRepository.saveAndFlush(owner);
+        locationRepository.saveAndFlush(location);
+	    orderRepository.saveAndFlush(newOrder);
+        lineItemRepository.saveAndFlush(lineItem);
+    }
+    
+    @Test
+    @org.junit.jupiter.api.Order(1)
+    public void testSaveLineItem() {
+        LineItem l1 = lineItemRepository.findByKey(key);
+
+        log.info(l1.toString());
+
+        assertNotNull(l1);
+        assertEquals(lineItem, l1);
+    }
+    
+    @Test
+    @org.junit.jupiter.api.Order(2)
+    public void testDeleteLineItem() {
+        lineItemRepository.delete(lineItem);
+        lineItemRepository.flush();
     }
 
     @Test
-    public void testSave() {
-        Recipe actual = recipeRepository.findByKey(recipeKey);
-
-        log.info(actual.toString());
-
-        assertNotNull(actual);
-        assertEquals(recipe, actual);
+    @org.junit.jupiter.api.Order(3)
+    public void testFindAllLineItems() {
+        assertNotNull(lineItemRepository.findAll());
     }
 
     @Test
-    public void testDelete() {
-        recipeRepository.delete(recipe);
-        recipeRepository.flush();
+    @org.junit.jupiter.api.Order(4)
+    public void testJpqlFinderLineItem() {
+        LineItem l1 = lineItemRepository.findByKey(key);
+        assertEquals(lineItem, l1);
     }
-
-    @Test
-    public void testFindAll() {
-        assertNotNull(recipeRepository.findAll());
-    }
-
-    @Test
-    public void testDeletById() {
-        Recipe actual = recipeRepository.findByKey(recipeKey);
-        recipeRepository.deleteById(actual.getKey());
-        recipeRepository.flush();
-    }
-
-    @Test
-    public void testJpqlFinder() {
-        Recipe actual = recipeRepository.findByKey(recipeKey);
-        assertEquals(recipe, actual);
-    }
-}*/
+}
