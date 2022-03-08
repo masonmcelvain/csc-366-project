@@ -1,0 +1,31 @@
+<!ELEMENT Orders (Order*)>
+<!ELEMENT Order (Tax, Subtotal, Total, Date, Customer, LineItem+)>
+<!ATTLIST Order order_id ID #REQUIRED>
+<!ATTLIST Order location_id CDATA #REQUIRED>
+<!ELEMENT Tax (#PCDATA)>
+<!ELEMENT Subtotal (#PCDATA)>
+<!ELEMENT Total (#PCDATA)>
+<!ELEMENT Date (#PCDATA)>
+
+<!ELEMENT Customer (FirstName, LastName)>
+<!ATTLIST Customer customer_id ID #REQUIRED>
+<!ELEMENT FirstName (#PCDATA)>
+<!ELEMENT LastName (#PCDATA)>
+
+<!ELEMENT LineItem (Product, Quantity, Subtotal, Tax)>
+<!ATTLIST LineItem line_item_id ID #REQUIRED>
+<!ELEMENT Quantity (#PCDATA)>
+
+<!ELEMENT Product (ProductName, Price, (Packaged|Prepared))>
+<!ATTLIST Product sku ID #REQUIRED>
+<!ELEMENT ProductName (#PCDATA)>
+<!ELEMENT Price (#PCDATA)>
+
+<!ELEMENT Packaged (Size)>
+<!ELEMENT Size (#PCDATA)>
+
+<!ELEMENT Prepared (Recipe)>
+<!ELEMENT Recipe (Ingredient+)>
+<!ELEMENT Ingredient (IngredientName)>
+<!ATTLIST Ingredient ingredient_id ID #REQUIRED>
+<!ELEMENT IngredientName (#PCDATA)>

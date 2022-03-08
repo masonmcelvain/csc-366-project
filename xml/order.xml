@@ -1,0 +1,44 @@
+<!DOCTYPE Orders SYSTEM "order.dtd">
+<Orders>
+  <Order order_id="order_1" location_id="location_1">
+    <Tax>1.50</Tax>
+    <Subtotal>50.00</Subtotal>
+    <Total>55.50</Total>
+    <Date>2007-01-01</Date>
+    <Customer customer_id="customer_1">
+      <FirstName>John</FirstName>
+      <LastName>Doe</LastName>
+    </Customer>
+    <LineItem line_item_id="line_item_1">
+      <Product sku="sku_1">
+        <ProductName>Product 1</ProductName>
+        <Price>10.00</Price>
+        <Packaged>
+          <Size>Small</Size>
+        </Packaged>
+      </Product>
+      <Quantity>1</Quantity>
+      <Subtotal>10.00</Subtotal>
+      <Tax>0.50</Tax>
+    </LineItem>
+    <LineItem line_item_id="line_item_2">
+      <Product sku="sku_2">
+        <ProductName>Product 2</ProductName>
+        <Price>20.00</Price>
+        <Prepared>
+          <Recipe>
+            <Ingredient ingredient_id="ingredient_1">
+              <IngredientName>Ingredient 1</IngredientName>
+            </Ingredient>
+            <Ingredient ingredient_id="ingredient_2">
+              <IngredientName>Ingredient 2</IngredientName>
+            </Ingredient>
+          </Recipe>
+        </Prepared>
+      </Product>
+      <Quantity>2</Quantity>
+      <Subtotal>40.00</Subtotal>
+      <Tax>1.00</Tax>
+    </LineItem>
+  </Order>
+</Orders>
