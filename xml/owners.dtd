@@ -1,0 +1,34 @@
+<!ELEMENT owners (owner+)>
+<!ELEMENT location (openedDate, address, contract*, inventory*)>
+<!ATTLIST location id ID #REQUIRED>
+<!ELEMENT openedDate (#PCDATA)>
+<!ELEMENT owner (firstName, lastName, location+)>
+<!ATTLIST owner id CDATA #REQUIRED>
+<!ELEMENT firstName (#PCDATA)>
+<!ELEMENT lastName (#PCDATA)>
+<!ELEMENT address (street, city, province, country)>
+<!ATTLIST address id ID #REQUIRED>
+<!ELEMENT street (#PCDATA)>
+<!ELEMENT city (#PCDATA)>
+<!ELEMENT province (#PCDATA)>
+<!ELEMENT country (#PCDATA)>
+<!ELEMENT inventory EMPTY>
+<!ATTLIST inventory 
+    id ID #REQUIRED
+    sku CDATA #REQUIRED
+    quantity CDATA #REQUIRED
+>
+<!ELEMENT contract (supplier, rate, quantity, date)>
+<!ATTLIST contract 
+    id ID #REQUIRED
+    type (NEW|RENEW) #REQUIRED
+    item CDATA #REQUIRED
+>
+<!ELEMENT rate (#PCDATA)>
+<!ELEMENT quantity (#PCDATA)>
+<!ELEMENT date (#PCDATA)>
+<!ELEMENT supplier (name, email, phone)>
+<!ATTLIST supplier id ID #REQUIRED>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT email (#PCDATA)>
+<!ELEMENT phone (#PCDATA)>

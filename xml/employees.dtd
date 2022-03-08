@@ -1,0 +1,21 @@
+<!ELEMENT employees (employee)+>
+<!ELEMENT employee (firstName, lastName, startDate, endDate, paycheck*)>
+<!ATTLIST employee 
+    empId ID #REQUIRED
+    managedBy IDREF #IMPLIED
+>
+<!ELEMENT firstName (#PCDATA)>
+<!ELEMENT lastName (#PCDATA)>
+<!ELEMENT startDate (#PCDATA)>
+<!ELEMENT endDate (#PCDATA)>
+<!ELEMENT paycheck EMPTY>
+<!ATTLIST paycheck 
+    id ID #REQUIRED
+    rate CDATA #REQUIRED
+    hours CDATA #REQUIRED
+    taxes CDATA #REQUIRED
+    sickHoursAccrued CDATA #REQUIRED
+    overtimeHours CDATA #REQUIRED
+    netPay CDATA #REQUIRED
+    sickHoursUsed CDATA #REQUIRED
+>

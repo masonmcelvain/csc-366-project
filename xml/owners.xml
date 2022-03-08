@@ -1,0 +1,49 @@
+<!DOCTYPE owners SYSTEM "owners.dtd">
+<owners>
+    <owner id="o1">
+        <firstName>Bob</firstName>
+        <lastName>Jones</lastName>
+        <location id="l1">
+            <openedDate>07/01/2015</openedDate>
+            <address id="a1">
+                <street>123 Main St</street>
+                <city>San Luis Obispo</city>
+                <province>CA</province>
+                <country>United States</country>
+            </address>
+        </location>
+        <location id="l2">
+            <openedDate>08/01/2017</openedDate>
+            <address id="a2">
+                <street>14 Higuera St</street>
+                <city>San Luis Obispo</city>
+                <province>CA</province>
+                <country>United States</country>
+            </address>
+        </location>
+    </owner>
+    <owner id="o2">
+        <firstName>John</firstName>
+        <lastName>Jones</lastName>
+        <location id="l3">
+            <openedDate>12/01/2019</openedDate>
+            <address id="a3">
+                <street>24 Marsh St</street>
+                <city>San Luis Obispo</city>
+                <province>CA</province>
+                <country>United States</country>
+            </address>
+            <contract id="c1" type='NEW' item='i1'>
+                <supplier id="s1">
+                    <name>Supplier 1</name>
+                    <email>supplier1@email.com</email>
+                    <phone>805-362-3464</phone>
+                </supplier>
+                <rate>10.00</rate>
+                <quantity>1000</quantity>
+                <date>12/14/2019</date>
+            </contract>
+            <inventory id="inv1" sku="i1" quantity="1000" />
+        </location>
+    </owner>
+</owners>
