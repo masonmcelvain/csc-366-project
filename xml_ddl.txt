@@ -1,0 +1,132 @@
+drop table if exists xml_owners;
+drop table if exists xml_employees;
+drop table if exists xml_orders;
+
+create table xml_owners (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    xml_doc TEXT
+);
+
+create table xml_employees (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    xml_doc TEXT
+);
+
+create table xml_orders (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    xml_doc TEXT
+);
+
+INSERT INTO xml_employees (xml_doc) VALUES 
+('
+<employee empId="e1" locationId="l1">
+    <firstName>John</firstName>
+    <lastName>Smith</lastName>
+    <startDate>01/02/1998</startDate>
+    <endDate>06/12/2020</endDate>
+    <paycheck id="p1" rate="15.00" hours="20" taxes="31.34" sickHoursAccrued="8" overtimeHours="0" netPay="268.66" sickHoursUsed="0" />
+</employee>
+'),
+('
+<employee empId="e2" locationId="l1">
+    <firstName>John</firstName>
+    <lastName>Smith</lastName>
+    <startDate>01/02/1998</startDate>
+    <endDate>06/12/2020</endDate>
+</employee>
+');
+
+INSERT INTO xml_owners (xml_doc) VALUES 
+('
+<owner id="o1">
+    <firstName>Bob</firstName>
+    <lastName>Jones</lastName>
+    <location id="l1">
+        <openedDate>07/01/2015</openedDate>
+        <address id="a1">
+            <street>123 Main St</street>
+            <city>San Luis Obispo</city>
+            <province>CA</province>
+            <country>United States</country>
+        </address>
+    </location>
+    <location id="l2">
+        <openedDate>08/01/2017</openedDate>
+        <address id="a2">
+            <street>14 Higuera St</street>
+            <city>San Luis Obispo</city>
+            <province>CA</province>
+            <country>United States</country>
+        </address>
+    </location>
+</owner>'),
+('
+<owner id="o2">
+    <firstName>John</firstName>
+    <lastName>Jones</lastName>
+    <location id="l3">
+        <openedDate>12/01/2019</openedDate>
+        <address id="a3">
+            <street>24 Marsh St</street>
+            <city>San Luis Obispo</city>
+            <province>CA</province>
+            <country>United States</country>
+        </address>
+        <contract id="c1" type="NEW" item="i1">
+            <supplier id="s1">
+                <name>Supplier 1</name>
+                <email>supplier1@email.com</email>
+                <phone>805-362-3464</phone>
+            </supplier>
+            <rate>10.00</rate>
+            <quantity>1000</quantity>
+            <date>12/14/2019</date>
+        </contract>
+        <inventory id="inv1" sku="i1" quantity="1000" />
+    </location>
+</owner>
+');
+
+INSERT INTO xml_orders (xml_doc) VALUES
+('<Order order_id="order_1" location_id="l1">
+    <Tax>1.50</Tax>
+    <Subtotal>50.00</Subtotal>
+    <Total>55.50</Total>
+    <Date>2007-01-01</Date>
+    <Customer customer_id="customer_1">
+      <FirstName>John</FirstName>
+      <LastName>Doe</LastName>
+    </Customer>
+    <LineItem line_item_id="line_item_1">
+      <Product sku="sku_1">
+        <ProductName>Product 1</ProductName>
+        <Price>10.00</Price>
+        <Packaged>
+          <Size>Small</Size>
+        </Packaged>
+      </Product>
+      <Quantity>1</Quantity>
+      <Subtotal>10.00</Subtotal>
+      <Tax>0.50</Tax>
+    </LineItem>
+    <LineItem line_item_id="line_item_2">
+      <Product sku="sku_2">
+        <ProductName>Product 2</ProductName>
+        <Price>20.00</Price>
+        <Prepared>
+          <Recipe>
+            <Ingredient ingredient_id="ingredient_1">
+              <IngredientName>Ingredient 1</IngredientName>
+            </Ingredient>
+            <Ingredient ingredient_id="ingredient_2">
+              <IngredientName>Ingredient 2</IngredientName>
+            </Ingredient>
+          </Recipe>
+        </Prepared>
+      </Product>
+      <Quantity>2</Quantity>
+      <Subtotal>40.00</Subtotal>
+      <Tax>1.00</Tax>
+    </LineItem>
+  </Order>
+');

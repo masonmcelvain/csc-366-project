@@ -2,6 +2,7 @@
 <!ELEMENT employee (firstName, lastName, startDate, endDate, paycheck*)>
 <!ATTLIST employee 
     empId ID #REQUIRED
+    locationId CDATA #REQUIRED
     managedBy IDREF #IMPLIED
 >
 <!ELEMENT firstName (#PCDATA)>

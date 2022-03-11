@@ -1,6 +1,6 @@
 <!DOCTYPE Orders SYSTEM "order.dtd">
 <Orders>
-  <Order order_id="order_1" location_id="location_1">
+  <Order order_id="order_1" location_id="l1">
     <Tax>1.50</Tax>
     <Subtotal>50.00</Subtotal>
     <Total>55.50</Total>
