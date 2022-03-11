@@ -5,7 +5,7 @@
         <lastName>Smith</lastName>
         <startDate>01/02/1998</startDate>
         <endDate>06/12/2020</endDate>
-        <paycheck id="p1" rate="15.00" hours="20" taxes="31.34" sickHoursAccrued="8" overtimeHours="0" netPay="268.66" sickHoursUsed="0" />
+        <paycheck id="p1" rate="15.00" hours="20" taxes="31.34" sickHoursAccrued="8" overtimeHours="0" netPay="268.66" sickHoursUsed="0" date="2021-03-01"/>
     </employee>
     <employee empId="e2" locationId="l1">
         <firstName>John</firstName>

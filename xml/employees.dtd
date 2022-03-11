@@ -12,6 +12,7 @@
 <!ELEMENT paycheck EMPTY>
 <!ATTLIST paycheck 
     id ID #REQUIRED
+    date CDATA #REQUIRED
     rate CDATA #REQUIRED
     hours CDATA #REQUIRED
     taxes CDATA #REQUIRED
